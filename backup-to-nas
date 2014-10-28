@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Dry run check
+if [ "$1" = '--dry-run' ]; then
+	dry_state='--dry-run'
+else
+	dry_state=''
+fi
+
+# Run
+rsync -rltpxh ${dry_state} --progress --files-from="$HOME/etc/backup-to-nas/include.list" --exclude-from="$HOME/etc/backup-to-nas/exclude.list" --delete $HOME Fabien@diskstation.home:/volume1/Fabien_Perso/$USER
