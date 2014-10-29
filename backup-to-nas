@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Initial blank line
+echo
+
 # Options' defaults
 error_msg=''
 dry_state=''
@@ -25,4 +28,5 @@ done
 rsync -rltpxh ${dry_state} --progress --exclude '.DS_Store' --exclude '.localized' --exclude '._*' --exclude '@eaDir/' --files-from="$HOME/etc/backup-to-nas/include.list" --exclude-from="$HOME/etc/backup-to-nas/exclude.list" --delete $HOME Fabien@diskstation.home:/volume1/Fabien_Perso/$USER
 
 # Close
+echo
 exit 0
