@@ -1,11 +1,25 @@
 #!/bin/bash
 
-# Check for dry run status
-if [ "$1" = '--dry-run' ]; then
-	dry_state='--dry-run'
-else
-	dry_state=''
-fi
+# Options' defaults
+error_msg=''
+dry_state=''
+
+# Parse options
+for arg in $@; do
+    if [ "$arg" == '--dry-run' ]; then
+        dry_state=$arg
+    else
+        if [ "$error_msg" != '' ]; then
+            echo $error_msg
+            echo
+        else
+            echo 'Invalid usage.'
+            echo
+        fi
+
+        exit 1
+    fi
+done
 
 # Run
 rsync -rltpxh ${dry_state} --progress --exclude '.DS_Store' --exclude '.localized' --exclude '._*' --exclude '@eaDir/' --files-from="$HOME/etc/backup-to-nas/include.list" --exclude-from="$HOME/etc/backup-to-nas/exclude.list" --delete $HOME Fabien@diskstation.home:/volume1/Fabien_Perso/$USER
