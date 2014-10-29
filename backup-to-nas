@@ -9,3 +9,6 @@ fi
 
 # Run
 rsync -rltpxh ${dry_state} --progress --files-from="$HOME/etc/backup-to-nas/include.list" --exclude-from="$HOME/etc/backup-to-nas/exclude.list" --delete $HOME Fabien@diskstation.home:/volume1/Fabien_Perso/$USER
+
+# Close
+exit 0
