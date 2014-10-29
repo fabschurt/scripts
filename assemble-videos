@@ -1,0 +1,46 @@
+#!/usr/bin/php
+
+<?php
+
+set_time_limit(300);
+
+$dirs = array_diff(scandir('.'), array('.', '..'));
+
+foreach ($dirs as $dir) {
+	if (!is_dir($dir)) {
+		continue;
+	}
+
+	if (!is_readable($dir) || !is_writable($dir)) {
+		echo "Unreadable: {$dir}\n";
+		continue;
+	}
+
+	$file_path = "{$dir}/{$dir}.mp4";
+	if (file_exists($file_path)) {
+		echo "File already exists: {$dir}\n";
+		continue;
+	}
+
+	$uploadedChunks = array_diff(scandir($dir), array('.', '..'));
+	natsort($uploadedChunks);
+
+	$finalFile = fopen($file_path, 'w');
+	if (!$finalFile) {
+		echo "Unable to open final file path: {$dir}\n";
+		fclose($finalFile);
+		continue;
+	}
+	foreach ($uploadedChunks as $chunkFileName) {
+		$chunkPath = sprintf('%s/%s', $dir, $chunkFileName);
+		if (!fwrite($finalFile, file_get_contents($chunkPath))) {
+			echo "Unabled to write this chunk: {$chunkPath}\n";
+			fclose($finalFile);
+			continue 2;
+		}
+	}
+
+	// Finalize
+	echo "OK: {$dir}\n";
+	fclose($finalFile);
+}
