@@ -25,7 +25,7 @@ for arg in $@; do
 done
 
 # Run
-rsync -rltpxh ${dry_state} --progress --files-from="/etc/backup-to-nas/include.list" --exclude-from="/etc/backup-to-nas/exclude.list" --delete / Fabien@diskstation.home:/volume1/Fabien_Perso/Backup
+rsync -rltpxh -e 'ssh -p 706' ${dry_state} --progress --files-from="/etc/backup-to-nas/include.list" --exclude-from="/etc/backup-to-nas/exclude.list" --delete / Fabien@diskstation.home:/volume1/Fabien_Perso/Backup
 
 # Close
 echo
