@@ -1,32 +1,28 @@
 #!/bin/bash
 
-# Initial blank line
 echo
 
-# Options' defaults
-error_msg=''
+########
+# Init #
+########
+
+# Check requirements
+type rsync > /dev/null 2>&1
+if [ $? -gt 0 ]; then
+    echo '[!!!] Error: rsync is required, exiting.'
+    exit 1
+fi
+
+# Check if the script should run dry
 dry_state=''
+if [ "$1" = '--dry-run' ]; then
+    dry_state='--dry-run'
+fi
 
-# Parse options
-for arg in $@; do
-    if [ "$arg" == '--dry-run' ]; then
-        dry_state=$arg
-    else
-        if [ "$error_msg" != '' ]; then
-            echo $error_msg
-            echo
-        else
-            echo 'Invalid usage.'
-            echo
-        fi
+########
+# Main #
+########
 
-        exit 1
-    fi
-done
+rsync ${dry_state} -rtpxh -e 'ssh -p 706' --progress --files-from='/etc/backup-to-nas/include.list' --exclude-from='/etc/backup-to-nas/exclude.list' --delete --rsync-path='/usr/syno/bin/rsync' / Fabien@diskstation.home:/volume1/Fabien/Backup/MacBook
 
-# Run
-rsync -rltpxh -e 'ssh -p 706' ${dry_state} --progress --files-from="/etc/backup-to-nas/include.list" --exclude-from="/etc/backup-to-nas/exclude.list" --delete / Fabien@diskstation.home:/volume1/Fabien_Perso/Backup
-
-# Close
-echo
 exit 0
