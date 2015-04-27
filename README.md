@@ -5,6 +5,13 @@ putting them up on GitHub for storage, and because who knows, maybe some of this
 crap can actually be useful to somebody. The PHP stuff dates back to the time
 when I didn't know Ruby, else I would have gone down the shiny red road for sure.
 
+## Installation
+
+Just `clone` or [unzip](https://github.com/fabschurt/scripts/archive/master.zip)
+the project locally, and then either run `deploy.sh` or move the content of the
+`bin/` directory into whatever destination suits you best (it should be covered
+by your `$PATH` though, otherwise it's rather pointless).
+
 ## The scripts
 
 ### backup-to-nas
