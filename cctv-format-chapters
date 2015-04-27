@@ -33,6 +33,7 @@ function convert_to_seconds($count, $unit)
  */
 function get_target_path()
 {
+    global $argv;
     static $target_path;
 
     if (is_null($target_path)) {
