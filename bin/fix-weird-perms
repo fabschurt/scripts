@@ -60,7 +60,7 @@ if [[ $target_path == false ]]; then
 fi
 
 # Customize script
-exclude_list='! -path *.git/* ! -path *.svn/*'
+exclude_list='! -path "*.git/*" ! -path "*.svn/*"'
 ideal_file_perms='0644'
 ideal_dir_perms='0755'
 file_action='ls -lph {}'
@@ -68,7 +68,7 @@ dir_action='ls -lphd {}'
 additional_options=''
 if [[ $is_nas == true ]]; then
   ideal_dir_perms='u=rwx,g=rxs,o=rx'
-  exclude_list="${exclude_list} ! -path *@eaDir/*"
+  exclude_list="${exclude_list} ! -path \"*@eaDir*\""
 fi
 if [[ $do_fix == true ]]; then
   file_action="chmod ${ideal_file_perms} {}"
