@@ -1,28 +1,13 @@
 #!/bin/bash
 
-echo
+# Check that dependencies are installed
+exec_dependencies=( 'backup' )
+for exec in ${exec_dependencies[@]}; do
+    type $exec > /dev/null 2>&1
+    if [[ $? > 0 ]]; then
+        echo "Error: ${exec} is required, exiting."
+        exit 1
+    fi
+done
 
-########
-# Init #
-########
-
-# Check requirements
-type rsync > /dev/null 2>&1
-if [ $? -gt 0 ]; then
-    echo '[!!!] Error: rsync is required, exiting.'
-    exit 1
-fi
-
-# Check if the script should run dry
-dry_state=''
-if [ "$1" = '--dry-run' ]; then
-    dry_state='--dry-run'
-fi
-
-########
-# Main #
-########
-
-rsync ${dry_state} -rtpxh -e 'ssh -p 706' --progress --files-from='/etc/backup-to-nas/include.list' --exclude-from='/etc/backup-to-nas/exclude.list' --delete --rsync-path='/usr/syno/bin/rsync' / Fabien@diskstation.home:/volume1/Fabien/Backup/MacBook
-
-exit 0
+backup perform --triggers system,documents
