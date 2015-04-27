@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 find . -type f ! -path "*/.git/*" ! -name .DS_Store ! -perm 0644 -exec ls -lah {} \;
 find . -type d ! -path "*/.git/*" ! -name .DS_Store ! -perm 0755 -exec ls -lah {} \;

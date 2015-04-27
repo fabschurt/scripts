@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Check that dependencies are installed
 exec_dependencies=( 'backup' )
