@@ -53,7 +53,7 @@ function format_current_line($line)
     }
 
     $line          = str_replace(array("\r\n", "\r", "\n"), '', $line);
-    $splitted_line = preg_match('#^((?:\:?\d+){3})\s+(.+)$#', $line, $matches);
+    $splitted_line = preg_match('#^((?:\:?\d+){3})[\ \t]+(.+)$#', $line, $matches);
     if (!$splitted_line) {
         exit("Invalid format.\n");
     }
