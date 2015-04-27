@@ -2,16 +2,15 @@
 <?php
 
 // Initialization
-
 ini_set('display_errors', true);
 error_reporting(E_ALL);
 
 /**
- * Converts $count to seconds, according to $unit.
- * 
+ * Converts `$count` to seconds, according to `$unit`.
+ *
  * @param int    $count
- * @param string $unit 
- * 
+ * @param string $unit
+ *
  * @return int
  */
 function convert_to_seconds($count, $unit)
@@ -27,51 +26,66 @@ function convert_to_seconds($count, $unit)
     }
 }
 
-// Extract and check target path
+/**
+ * Returns the target path from CLI arguments (and caches it).
+ *
+ * @return string
+ */
+function get_target_path()
+{
+    static $target_path;
 
-if (!empty($argv[1])) {
-    $path = strval($argv[1]);
-    if (!file_exists($path)) {
-        exit("The path specified as an argument is not valid.\n");
+    if (is_null($target_path)) {
+        if (!empty($argv[1])) {
+            $target_path = strval($argv[1]);
+            if (!file_exists($target_path)) {
+                exit("The path specified as argument is not valid.\n");
+            }
+        } else {
+            exit("Missing argument: you need to specify the path to the file containing the text to transform.\n");
+        }
     }
-} else {
-    exit("Missing argument: you need to specify the path to the file containing the text to transform.\n");
+
+    return $target_path;
 }
 
-// Target file parsing and transforming (output to STDOUT)
-
-$file = fopen($path, 'r');
-
-echo "<ul>\n";
-
-while(($line = fgets($file)) !== false) {
+/**
+ * Returns a (HTML-)formatted timecode line.
+ *
+ * @param string $line
+ *
+ * @return string
+ */
+function format_current_line($line)
+{
     if (!$line) {
-        continue;
+        return;
     }
 
-    $line = str_replace(array("\r\n", "\r", "\n"), '', $line);
-
-    //$splitted_line = preg_split('/^((?:\:?\d{2}){3})(?:\ {2,}|\t+)/', $line, -1, (PREG_SPLIT_NO_EMPTY|PREG_SPLIT_DELIM_CAPTURE));
+    $line          = str_replace(array("\r\n", "\r", "\n"), '', $line);
     $splitted_line = preg_match('#^((?:\:?\d+){3})\s+(.+)$#', $line, $matches);
-
     if (!$splitted_line) {
         exit("Invalid format.\n");
     }
 
-    $timecode = $matches[1];
-    $label    = $matches[2];
-
-    $splitted_timecode = explode(':', $timecode);
-
+    $timecode            = $matches[1];
+    $label               = $matches[2];
+    $splitted_timecode   = explode(':', $timecode);
     $position_in_seconds = convert_to_seconds($splitted_timecode[0], 'h') +
                            convert_to_seconds($splitted_timecode[1], 'm') +
                            convert_to_seconds($splitted_timecode[2], 's');
 
-    echo sprintf('<li><a href="?position=%s" rel="nofollow">%s</a></li>'."\n", $position_in_seconds, $label);
+    return "<li><a href=\"?position={$position_in_seconds}\" rel=\"nofollow\">{$label}</a></li>\n";
 }
 
+// Run
+$file = fopen(get_target_path(), 'r');
+echo "<ul>\n";
+while(($line = fgets($file)) !== false) {
+    if (!$line) {
+        continue;
+    }
+    echo format_current_line($line);
+}
 echo "</ul>\n";
-
-// Closure
-
 fclose($file);
