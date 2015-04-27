@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 
+#
+# This file is part of the fabschurt/scripts package.
+#
+# (c) 2015 Fabien Schurter <dev@fabschurt.net>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+# @author    Fabien Schurter <dev@fabschurt.net>
+# @license   MIT
+# @copyright 2015 Fabien Schurter
+#
+
 # Ask confirmation
 echo 'All the scripts in the bin/ directory will now be copied into /usr/local/bin'\
 ' (this directory will be created if it does not exist).'
