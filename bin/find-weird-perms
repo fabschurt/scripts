@@ -1,11 +1,63 @@
 #!/usr/bin/env bash
 
-# Check arguments
-if [[ $# != 1 || ! $1 || ! -d $1 || ! -r $1 ]]; then
-  echo 'You must specify a valid (existing and readable) directory path as single argument.'
+#
+# Displays the script's usage.
+#
+function display_usage()
+{
+  echo 'Usage: fix-weird-perms [--nas] [--do-fix] <path>'
+}
+
+# Set default variable values
+target_path=false
+is_nas=false
+do_fix=false
+
+# Parse script arguments
+while [[ $# > 0 ]]; do
+  case $1 in
+    '--nas')
+      is_nas=true
+      ;;
+    '--do-fix')
+      do_fix=true
+      ;;
+    *)
+      if [[ $1 =~ ^-+ ]]; then
+        display_usage
+        exit 1
+      elif [[ $target_path != false || ! -d $1 || ! -r $1 ]]; then
+        echo 'You must specify a single valid (existing and readable) directory path as argument.'
+        exit 1
+      fi
+      target_path=$1
+      ;;
+  esac
+  shift
+done
+
+# Check that we have a target
+if [[ $target_path == false ]]; then
+  display_usage
   exit 1
 fi
 
+# Customize script
+exclude_list='! -path *.git/* ! -path *.svn/*'
+ideal_file_perms='0644'
+ideal_dir_perms='0755'
+file_action='ls -lph {}'
+dir_action='ls -lphd {}'
+additional_options=''
+if [[ $is_nas == true ]]; then
+  ideal_dir_perms='u=rwx,g=rxs,o=rx'
+  exclude_list="${exclude_list} ! -path *@eaDir/*"
+fi
+if [[ $do_fix == true ]]; then
+  file_action="chmod ${ideal_file_perms} {}"
+  dir_action="chmod ${ideal_dir_perms} {}"
+fi
+
 # Run
-find $1 -type f ! -path '*/.git/*' ! -name .DS_Store ! -perm 0644 -exec ls -lph {} \;
-find $1 -type d ! -path '*/.git/*' ! -name .DS_Store ! -perm 0755 -exec ls -lphd {} \;
+find $target_path -type f $exclude_list ! -perm $ideal_file_perms -exec $file_action \;
+find $target_path -type d $exclude_list ! -perm $ideal_dir_perms -exec $dir_action \;
