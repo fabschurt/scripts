@@ -3,11 +3,12 @@
 # Check that dependencies are installed
 exec_dependencies=( 'backup' )
 for exec in ${exec_dependencies[@]}; do
-    type $exec > /dev/null 2>&1
-    if [[ $? > 0 ]]; then
-        echo "Error: ${exec} is required, exiting."
-        exit 1
-    fi
+  type $exec > /dev/null 2>&1
+  if [[ $? > 0 ]]; then
+    echo "Error: ${exec} is required; exiting."
+    exit 1
+  fi
 done
 
+# Run
 backup perform --triggers system,documents
