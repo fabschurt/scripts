@@ -18,13 +18,14 @@
 #
 function display_usage()
 {
-  echo 'Usage: fix-weird-perms [--nas] [--do-fix] <path>'
+  echo 'Usage: fix-weird-perms [--nas] [--do-fix] [--echo-commands] <path>'
 }
 
 # Set default variable values
 target_path=false
 is_nas=false
 do_fix=false
+echo_commands=false
 
 # Parse script arguments
 while [[ $# > 0 ]]; do
@@ -34,6 +35,9 @@ while [[ $# > 0 ]]; do
       ;;
     '--do-fix')
       do_fix=true
+      ;;
+    '--echo-commands')
+      echo_commands=true
       ;;
     *)
       if [[ $1 =~ ^-+ ]]; then
@@ -72,5 +76,12 @@ if [[ $do_fix == true ]]; then
 fi
 
 # Run
-find $target_path -type f $exclude_list ! -perm $ideal_file_perms -exec $file_action \;
-find $target_path -type d $exclude_list ! -perm $ideal_dir_perms -exec $dir_action \;
+file_cmd="find ${target_path} -type f ${exclude_list} ! -perm ${ideal_file_perms} -exec ${file_action}"
+dir_cmd="find ${target_path} -type d -mindepth 1 ${exclude_list} ! -perm ${ideal_dir_perms} -exec ${dir_action}"
+if [[ $echo_commands == true ]]; then
+  echo $file_cmd
+  echo $dir_cmd
+else
+  $file_cmd \;
+  $dir_cmd \;
+fi

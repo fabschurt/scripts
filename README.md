@@ -50,7 +50,7 @@ yeah, that script disables the crappy bastard forever.
 This script recurses down a given directory, checks found files' and directories'
 permissions, and changes them if needed.
 
-**Usage:** `fix-weird-perms [--nas] [--do-fix] <path>`
+**Usage:** `fix-weird-perms [--nas] [--do-fix] [--echo-commands] <path>`
 
 * `--nas`: by default, the script will change files' permissions to `0644` and
 directories' permissions to `0755`; with this option set, the directories'
@@ -60,6 +60,8 @@ activated)
 * `--do-fix`: by default, the script will do nothing but list the files which
 have wrong permissions; you have to pass this option to make it actually change
 the permissions (I like to go on a dry run before diving in for real)
+* `--echo-commands`: with this option, the script will do nothing no matter what,
+and it will just print the commands that would have been executed
 
 ### timecodes-to-chapters
 
