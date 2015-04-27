@@ -1,3 +1,3 @@
 # Scripts
 
-Just a bunch of PHP and Bash CLI utilities which help me do some stuff.
+Just a bunch of PHP and Bash CLI utilities which helps me do some stuff.
