@@ -1,6 +1,12 @@
 #!/usr/bin/env php
 <?php
 
+/**
+ * Scans `$current_dir` and its subdirs, and creates `.gitkeep` files in empty
+ * dirs.
+ *
+ * @param string $current_dir
+ */
 function scan_dirs($current_dir)
 {
     if (!is_dir($current_dir) || !is_readable($current_dir)) {
@@ -10,11 +16,11 @@ function scan_dirs($current_dir)
     $paths = array_diff(scandir($current_dir), array('.', '..'));
 
     if (!count($paths) && is_writable($current_dir)) {
-        echo "$current_dir\n";
+        echo "{$current_dir}\n";
         touch("{$current_dir}/.gitkeep");
     } else {
         foreach ($paths as $path) {
-            $path = $current_dir.'/'.$path;
+            $path = "{$current_dir}/{$path}";
             if (is_dir($path) && is_readable($path)) {
                 scan_dirs($path);
             }
@@ -22,11 +28,9 @@ function scan_dirs($current_dir)
     }
 }
 
+// Run
 if (!empty($argv[1]) && is_dir($argv[1]) && is_readable($argv[1])) {
     scan_dirs($argv[1]);
 } else {
     echo "Invalid base path.\n";
 }
-
-echo "\n";
-exit();
