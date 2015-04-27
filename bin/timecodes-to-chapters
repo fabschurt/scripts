@@ -59,7 +59,7 @@ function format_current_line($line)
     }
 
     $timecode            = $matches[1];
-    $label               = $matches[2];
+    $label               = filter_var($matches[2], FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES);
     $splitted_timecode   = explode(':', $timecode);
     $position_in_seconds = convert_to_seconds($splitted_timecode[0], 'h') +
                            convert_to_seconds($splitted_timecode[1], 'm') +
