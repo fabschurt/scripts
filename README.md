@@ -23,7 +23,8 @@ workflow.
 
 ### clean-jpeg
 
-A lazy preconfigured wrapper around `jpegoptim`.
+A lazy preconfigured wrapper around `jpegoptim`, to make it strip metadata from
+JPEGs very agressively.
 
 **Usage:** `clean-jpeg <files>`
 
