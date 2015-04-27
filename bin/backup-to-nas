@@ -11,7 +11,7 @@ exec_dependencies=( 'backup' )
 for exec in ${exec_dependencies[@]}; do
   type $exec > /dev/null 2>&1
   if [[ $? > 0 ]]; then
-    echo "Error: ${exec} is required."
+    echo "Error: the '${exec}' program is required."
     exit 1
   fi
 done

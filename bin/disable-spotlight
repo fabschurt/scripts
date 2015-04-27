@@ -17,7 +17,7 @@ exec_dependencies=( 'mdutil' 'launchctl' )
 for exec in ${exec_dependencies[@]}; do
   type $exec > /dev/null 2>&1
   if [[ $? > 0 ]]; then
-    echo "Error: ${exec} is required (this script works on Mac OS X only)."
+    echo "Error: the '${exec}' program is required (this script works on Mac OS X only)."
     exit 1
   fi
 done
