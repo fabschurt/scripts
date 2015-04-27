@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# Validate target path
-if [[ ! $1 || ! -d $1 || ! -r $1 ]]; then
-  echo 'You must specify a valid directory path as argument.'
+# Check arguments
+if [[ $# != 1 || ! $1 || ! -d $1 || ! -r $1 ]]; then
+  echo 'You must specify a valid (existing and readable) directory path as single argument.'
   exit 1
 fi
 

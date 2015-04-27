@@ -27,30 +27,6 @@ function convert_to_seconds($count, $unit)
 }
 
 /**
- * Returns the target path from CLI arguments (and caches it).
- *
- * @return string
- */
-function get_target_path()
-{
-    global $argv;
-    static $target_path;
-
-    if (is_null($target_path)) {
-        if (!empty($argv[1])) {
-            $target_path = strval($argv[1]);
-            if (!file_exists($target_path)) {
-                exit("The path specified as argument is not valid.\n");
-            }
-        } else {
-            exit("Missing argument: you need to specify the path to the file containing the text to transform.\n");
-        }
-    }
-
-    return $target_path;
-}
-
-/**
  * Returns a (HTML-)formatted timecode line.
  *
  * @param string $line
@@ -60,7 +36,7 @@ function get_target_path()
 function format_current_line($line)
 {
     if (!$line) {
-        return;
+        return '';
     }
 
     $line          = str_replace(array("\r\n", "\r", "\n"), '', $line);
@@ -79,8 +55,13 @@ function format_current_line($line)
     return "<li><a href=\"?position={$position_in_seconds}\" rel=\"nofollow\">{$label}</a></li>\n";
 }
 
+// Check arguments
+if ($argc != 2 || !is_file($argv[1]) || !is_readable($argv[1])) {
+    exit("You must specify a valid (existing and readable) file path as single argument.\n");
+}
+
 // Run
-$file = fopen(get_target_path(), 'r');
+$file = fopen($argv[1], 'r');
 echo "<ul>\n";
 while(($line = fgets($file)) !== false) {
     if (!$line) {

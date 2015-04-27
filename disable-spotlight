@@ -1,20 +1,26 @@
 #!/usr/bin/env bash
 
-# Check that dependencies are installed
-exec_dependencies=( 'mdutil' 'launchctl' )
-for exec in ${exec_dependencies[@]}; do
-  type $exec > /dev/null 2>&1
-  if [[ $? > 0 ]]; then
-    echo "Error: ${exec} is required. This script works on Mac OS X only."
-    exit 1
-  fi
-done
-
 # Check that current user is root
 if [[ $EUID != 0 ]]; then
   echo 'Error: this script must be run as root.'
   exit 1
 fi
+
+# Check argument count
+if [[ $# > 0 ]]; then
+  echo 'This script accepts no argument.'
+  exit 1
+fi
+
+# Check that dependencies are installed
+exec_dependencies=( 'mdutil' 'launchctl' )
+for exec in ${exec_dependencies[@]}; do
+  type $exec > /dev/null 2>&1
+  if [[ $? > 0 ]]; then
+    echo "Error: ${exec} is required (this script works on Mac OS X only)."
+    exit 1
+  fi
+done
 
 # Run
 mdutil -a -i off

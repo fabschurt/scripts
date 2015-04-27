@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 
+# Check argument count
+if [[ $# > 0 ]]; then
+  echo 'This script accepts no argument.'
+  exit 1
+fi
+
 # Check that dependencies are installed
 exec_dependencies=( 'backup' )
 for exec in ${exec_dependencies[@]}; do
   type $exec > /dev/null 2>&1
   if [[ $? > 0 ]]; then
-    echo "Error: ${exec} is required; exiting."
+    echo "Error: ${exec} is required."
     exit 1
   fi
 done

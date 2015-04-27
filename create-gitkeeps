@@ -13,24 +13,31 @@ function scan_dirs($current_dir)
         return;
     }
 
-    $paths = array_diff(scandir($current_dir), array('.', '..'));
+    $subdir_paths = array_diff(scandir($current_dir), array('.', '..'));
 
-    if (!count($paths) && is_writable($current_dir)) {
-        echo "{$current_dir}\n";
-        touch("{$current_dir}/.gitkeep");
+    // Create a .gitkeep file in the current directory if it is empty…
+    if (!count($subdir_paths) && is_writable($current_dir)) {
+        $current_gitkeep_path = "{$current_dir}/.gitkeep";
+        if (touch($current_gitkeep_path)) {
+            echo "Touch: {$current_gitkeep_path}\n";
+        } else {
+            echo "Error: {$current_gitkeep_path}\n";
+        }
+    // …and if not, traverse through its children
     } else {
-        foreach ($paths as $path) {
-            $path = "{$current_dir}/{$path}";
-            if (is_dir($path) && is_readable($path)) {
-                scan_dirs($path);
+        foreach ($subdir_paths as $subdir_path) {
+            $subdir_path = "{$current_dir}/{$subdir_path}";
+            if (is_dir($subdir_path) && is_readable($subdir_path)) {
+                scan_dirs($subdir_path);
             }
         }
     }
 }
 
-// Run
-if (!empty($argv[1]) && is_dir($argv[1]) && is_readable($argv[1])) {
-    scan_dirs($argv[1]);
-} else {
-    echo "Invalid base path.\n";
+// Check arguments
+if ($argc != 2 || !is_dir($argv[1]) || !is_readable($argv[1])) {
+    exit("You must specify a valid (existing and readable) directory path as single argument.\n");
 }
+
+// Run
+scan_dirs($argv[1]);
