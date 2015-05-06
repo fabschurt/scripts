@@ -30,4 +30,9 @@ for exec in ${exec_dependencies[@]}; do
 done
 
 # Run
-backup perform --triggers system,documents
+if [[ ! $(ssh-add -L) =~ $HOME/\.ssh/id_rsa ]]; then
+  ssh-add -k -t 1800 $HOME/.ssh/id_rsa
+fi
+if [[ ! $? > 0 ]]; then
+  backup perform --triggers system,documents
+fi
