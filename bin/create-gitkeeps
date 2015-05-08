@@ -14,6 +14,18 @@
  * @copyright 2015 Fabien Schurter
  */
 
+// Default option values
+$target_path = null;
+$do_it       = false;
+
+/**
+ * Displays the script's usage.
+ */
+function display_usage()
+{
+    echo "Usage: create-gitkeeps [--go] <path>\n";
+}
+
 /**
  * Scans `$current_dir` and its subdirs, and creates `.gitkeep` files in empty
  * dirs.
@@ -26,13 +38,16 @@ function scan_dirs($current_dir)
         return;
     }
 
+    global $do_it;
     $subdir_paths = array_diff(scandir($current_dir), array('.', '..'));
 
     // Create a .gitkeep file in the current directory if it is empty…
     if (!count($subdir_paths) && is_writable($current_dir)) {
         $current_gitkeep_path = "{$current_dir}/.gitkeep";
-        if (touch($current_gitkeep_path)) {
-            echo "Touch: {$current_gitkeep_path}\n";
+        if (!$do_it) {
+            echo "To be touched: {$current_gitkeep_path}\n";
+        } elseif (touch($current_gitkeep_path)) {
+            echo "Touched: {$current_gitkeep_path}\n";
         } else {
             echo "Error: {$current_gitkeep_path}\n";
         }
@@ -47,10 +62,35 @@ function scan_dirs($current_dir)
     }
 }
 
-// Check arguments
-if ($argc != 2 || !is_dir($argv[1]) || !is_readable($argv[1])) {
-    exit("You must specify a valid (existing and readable) directory path as single argument.\n");
+// Parse options
+foreach ($argv as $index => $arg) {
+    // Skip the first iteration ($arg would be the name of this script)
+    if ($index == 0) {
+        continue;
+    }
+
+    switch ($arg) {
+        case '--go':
+            $do_it = true;
+            break;
+        default:
+            if (preg_match('/^-+/', $arg)) {
+                display_usage();
+                exit(1);
+            } elseif ($target_path || !is_dir($arg) || !is_readable($arg)) {
+                echo "You must specify a single valid (existing and readable) directory path as argument.\n";
+                exit(1);
+            }
+            $target_path = $arg;
+            break;
+    }
+}
+
+// Check that we have a target
+if (!$target_path) {
+    display_usage();
+    exit(1);
 }
 
 // Run
-scan_dirs($argv[1]);
+scan_dirs($target_path);
