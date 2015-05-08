@@ -36,7 +36,7 @@ obviously.
 
 **Usage:** `create-gitkeeps [--go] <path>`
 
-* `--go` by default, the script will do nothing but list the paths that would be
+* `--go`: by default, the script will do nothing but list the paths that would be
 created; you have to pass this option to make it actually create the `.gitkeep`
 files
 
