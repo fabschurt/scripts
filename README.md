@@ -26,7 +26,7 @@ workflow.
 A lazy preconfigured wrapper around `jpegoptim`, to make it strip metadata from
 JPEGs very agressively.
 
-**Usage:** `clean-jpeg <files>`
+**Usage:** `clean-jpeg <files...>`
 
 ### create-gitkeeps
 
