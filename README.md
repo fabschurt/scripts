@@ -14,13 +14,6 @@ by your `$PATH` though, otherwise it's rather pointless).
 
 ## The scripts
 
-### backup-to-nas
-
-A lazy shortcut to trigger my [backup](http://meskyanichi.github.io/backup/v4/)
-workflow.
-
-**Usage:** `backup-to-nas`
-
 ### clean-jpeg
 
 A lazy preconfigured wrapper around `jpegoptim`, to make it strip metadata from
