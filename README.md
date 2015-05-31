@@ -17,9 +17,11 @@ by your `$PATH` though, otherwise it's rather pointless).
 ### clean-jpeg
 
 A lazy preconfigured wrapper around `jpegoptim`, to make it strip metadata from
-JPEGs very agressively.
+JPEGs agressively.
 
 **Usage:** `clean-jpeg <paths...>`
+
+* `paths`: one or several paths to JPEG file(s)
 
 ### create-gitkeeps
 
@@ -27,11 +29,12 @@ This script recurses down a given directory, and creates a dummy `.gitkeep` file
 in every empty subdirectory it finds. Useful only if you use [Git](https://git-scm.com/)
 obviously.
 
-**Usage:** `create-gitkeeps [--go] <path>`
+**Usage:** `create-gitkeeps [--go] [path]`
 
 * `--go`: by default, the script will do nothing but list the paths that would be
 created; you have to pass this option to make it actually create the `.gitkeep`
 files
+* `path`: the root directory path to consider (defaults to `.`)
 
 ### disable-spotlight
 
@@ -47,7 +50,7 @@ yeah, that script disables the crappy bastard forever.
 This script recurses down a given directory, checks found files' and directories'
 permissions, and changes them if needed.
 
-**Usage:** `fix-weird-perms [--nas] [--do-fix] [--echo-commands] <path>`
+**Usage:** `fix-weird-perms [--nas] [--do-fix] [--echo-commands] [path]`
 
 * `--nas`: by default, the script will change files' permissions to `0644` and
 directories' permissions to `0755`; with this option set, the directories'
@@ -59,6 +62,7 @@ have wrong permissions; you have to pass this option to make it actually change
 the permissions
 * `--echo-commands`: with this option, the script will do nothing no matter what,
 and it will just print the commands that would have been executed
+* `path`: the root directory path to consider (defaults to `.`)
 
 ### timecodes-to-chapters
 
@@ -89,6 +93,8 @@ _What the hell can I use this for_, you ask? Well, it's all up to you. It's
 useful to me, but please feel free to think completely otherwise.
 
 **Usage:** `timecodes-to-chapters <path>`
+
+* `path`: the path to the file containing the raw timecodes
 
 ## License
 
