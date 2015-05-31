@@ -85,10 +85,9 @@ foreach ($argv as $index => $arg) {
     }
 }
 
-// Check that we have a target
+// Default value for target path
 if (!$target_path) {
-    display_usage();
-    exit(1);
+    $target_path = '.';
 }
 
 // Run
