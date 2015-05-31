@@ -19,7 +19,7 @@ by your `$PATH` though, otherwise it's rather pointless).
 A lazy preconfigured wrapper around `jpegoptim`, to make it strip metadata from
 JPEGs very agressively.
 
-**Usage:** `clean-jpeg <files...>`
+**Usage:** `clean-jpeg <paths...>`
 
 ### create-gitkeeps
 
@@ -88,7 +88,7 @@ the timecode and its description.
 _What the hell can I use this for_, you ask? Well, it's all up to you. It's
 useful to me, but please feel free to think completely otherwise.
 
-**Usage:** `timecodes-to-chapters <file>`
+**Usage:** `timecodes-to-chapters <path>`
 
 ## License
 
