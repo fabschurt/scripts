@@ -21,4 +21,4 @@ fi
 
 # Run
 set -e
-cp -aXv $(dirname $0)/bin/* /usr/local/bin
+cp -auv $(dirname $0)/bin/* /usr/local/bin
