@@ -34,7 +34,7 @@ obviously.
 * `--go`: by default, the script will do nothing but list the paths that would be
 created; you have to pass this option to make it actually create the `.gitkeep`
 files
-* `path`: the root directory path to consider (defaults to `.`)
+* `path`: the root directory path to consider
 
 ### disable-spotlight
 
@@ -62,7 +62,7 @@ have wrong permissions; you have to pass this option to make it actually change
 the permissions
 * `--echo-commands`: with this option, the script will do nothing no matter what,
 and it will just print the commands that would have been executed
-* `path`: the root directory path to consider (defaults to `.`)
+* `path`: the root directory path to consider
 
 ### timecodes-to-chapters
 
