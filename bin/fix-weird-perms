@@ -52,9 +52,10 @@ while [[ $# > 0 ]]; do
   shift
 done
 
-# Default value for target path
+# Check that we have a target
 if [[ $target_path == false ]]; then
-  target_path='.'
+  display_usage
+  exit 1
 fi
 
 # Customize script
