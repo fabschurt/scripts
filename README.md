@@ -96,6 +96,17 @@ useful to me, but please feel free to think completely otherwise.
 
 * `path`: the path to the file containing the raw timecodes
 
+### markdown-to-pdf
+
+This script wraps a Pandoc call with sensible defaults to perform a Markdown-to-PDF
+conversion.
+
+**Usage:** `markdown-to-pdf <input-path> <output-path>`
+
+* `input-path`: the path to the input Markdown file
+* `output-path`: the path for the output PDF file (must end with `.pdf` for the
+  processing to actually take place)
+
 ## License
 
 This package is licensed under the [MIT License](http://opensource.org/licenses/MIT).
