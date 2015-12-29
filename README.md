@@ -90,7 +90,7 @@ all with leading zeros), and there **MUST** be 1-n space(s) (or tab(s)) between
 the timecode and its description.
 
 _What the hell can I use this for_, you ask? Well, it's all up to you. It's
-useful to me, but please feel free to think completely otherwise.
+useful to me, but please feel free to think completely different about that.
 
 **Usage:** `timecodes-to-chapters <path>`
 
