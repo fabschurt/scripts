@@ -32,8 +32,8 @@ obviously.
 **Usage:** `create-gitkeeps [--go] [path]`
 
 * `--go`: by default, the script will do nothing but list the paths that would be
-created; you have to pass this option to make it actually create the `.gitkeep`
-files
+  created; you have to pass this option to make it actually create the `.gitkeep`
+  files
 * `path`: the root directory path to consider
 
 ### disable-spotlight
@@ -53,15 +53,15 @@ permissions, and changes them if needed.
 **Usage:** `fix-weird-perms [--nas] [--do-fix] [--echo-commands] [path]`
 
 * `--nas`: by default, the script will change files' permissions to `0644` and
-directories' permissions to `0755`; with this option set, the directories'
-permissions will be set to `u=rwx,g=rxs,o=rx` instead (this is useful if you own
-a Synology DiskStation and you have the `Default UNIX permissions` feature
-activated)
+  directories' permissions to `0755`; with this option set, the directories'
+  permissions will be set to `u=rwx,g=rxs,o=rx` instead (this is useful if you
+  own a Synology DiskStation and you have the `Default UNIX permissions` feature
+  activated)
 * `--do-fix`: by default, the script will do nothing but list the files which
-have wrong permissions; you have to pass this option to make it actually change
-the permissions
+  have wrong permissions; you have to pass this option to make it actually change
+  the permissions
 * `--echo-commands`: with this option, the script will do nothing no matter what,
-and it will just print the commands that would have been executed
+  and it will just print the commands that would have been executed
 * `path`: the root directory path to consider
 
 ### timecodes-to-chapters
