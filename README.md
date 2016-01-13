@@ -70,8 +70,8 @@ This one is pretty exotic. You have to feed it a file containing timecodes and
 descriptions formatted like this:
 
 ```
-00:05:00  Some fat text describing what's going on at that time of the played media
-00:10:00  Some more fat text because fat text is cool
+00:05:00  Hey yo
+00:10:00  Yo some text yo
 01:00:00  You get the point
 ```
 
@@ -79,8 +79,8 @@ descriptions formatted like this:
 
 ```html
 <ul>
-<li><a href="?position=300" rel="nofollow">Some fat text describing what's going on at that time of the played media</a></li>
-<li><a href="?position=600" rel="nofollow">Some more fat text because fat text is cool</a></li>
+<li><a href="?position=300" rel="nofollow">Hey yo</a></li>
+<li><a href="?position=600" rel="nofollow">Yo some text yo</a></li>
 <li><a href="?position=3600" rel="nofollow">You get the point</a></li>
 </ul>
 ```
