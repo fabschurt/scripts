@@ -96,14 +96,21 @@ useful to me, but please feel free to think completely different about that.
 
 * `path`: the path to the file containing the raw timecodes
 
-### markdown-to-pdf
+### pandoc-pdf
 
-This script wraps a Pandoc call with sensible defaults to perform a Markdown-to-PDF
-conversion.
+This script wraps a Pandoc call with sensible defaults to perform a markup-to-PDF
+conversion. The script will try and guess the right input format to use from the
+input path's file extension.
 
-**Usage:** `markdown-to-pdf <input-path> <output-path>`
+Only GitHub Markdown (`.md`, `.markdown`) and reStructuredText (`.rst`) are
+supported at the moment. Note that contrary to the default implementation, single
+newlines inside GitHub Markdown paragraphs will be converted to spaces (so you
+can hard wrap paragraphs in your editor, and they'll be unwrapped in the PDF
+output).
 
-* `input-path`: the path to the input Markdown file
+**Usage:** `pandoc-pdf <input-path> <output-path>`
+
+* `input-path`: the path to the input markup file
 * `output-path`: the path for the output PDF file (must end with `.pdf` for the
   processing to actually take place)
 

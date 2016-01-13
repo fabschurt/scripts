@@ -17,7 +17,7 @@
 #
 function display_usage()
 {
-  echo 'Usage: markdown-to-pdf <input-path> <output-path>'
+  echo 'Usage: pandoc-pdf <input-path> <output-path>'
 }
 
 # Check that dependencies are installed
@@ -42,9 +42,24 @@ if [[ ! -f $1 ]]; then
   exit 1
 fi
 
+# Infer input format to use
+format=''
+case $1 in
+  *.md|*.markdown)
+    format='markdown_github-hard_line_breaks'
+    ;;
+  *.rst)
+    format='rst'
+    ;;
+  *)
+    "This input file format is not supported."
+    exit 1
+    ;;
+esac
+
 # Run
-pandoc $1 -o $2 -f markdown_github -Ss --latex-engine=xelatex \
-  -V geometry:margin=0.75in \
+pandoc $1 -o $2 -f $format -Ss --latex-engine=xelatex \
+  -V geometry:margin=1in \
   -V linkcolor=blue \
   -V urlcolor=blue \
   -V mainfont='Roboto Light' \
