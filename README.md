@@ -14,15 +14,6 @@ by your `$PATH` though, otherwise it's rather pointless).
 
 ## The scripts
 
-### clean-jpeg
-
-A lazy preconfigured wrapper around `jpegoptim`, to make it strip metadata from
-JPEGs agressively.
-
-**Usage:** `clean-jpeg <paths...>`
-
-* `paths`: one or several paths to JPEG file(s)
-
 ### create-gitkeeps
 
 This script recurses down a given directory, and creates a dummy `.gitkeep` file
