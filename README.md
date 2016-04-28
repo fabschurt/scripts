@@ -27,15 +27,6 @@ obviously.
   files
 * `path`: the root directory path to consider
 
-### disable-spotlight
-
-If there is one thing that I hate about OS X, it's Spotlight. It's so useless! I
-even prefer going through the pain of opening a terminal window and use `find`
-whenever I need to search for something; it's far less of a waste of time. Oh
-yeah, that script disables the crappy bastard forever.
-
-**Usage:** `disable-spotlight` (must be run as `root`)
-
 ### fix-weird-perms
 
 This script recurses down a given directory, checks found files' and directories'
